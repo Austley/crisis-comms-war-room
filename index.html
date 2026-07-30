@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Crisis Comms War Room</title>
+    <meta name="description" content="A free crisis communications tool for comms pros. Turn a messy incident into an executive-ready advisory with first moves, message map, stakeholder actions, and draft assets.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">A free tool for comms pros, from Austley</p>
+        <h1>Crisis Comms War Room</h1>
+      </div>
+      <div class="status-strip" aria-label="Current war room status">
+        <span class="status-item"><small>Scenario</small><strong id="statusScenario">Taylor Farms</strong></span>
+        <span class="status-item"><small>Severity</small><strong id="statusSeverity">Critical</strong></span>
+        <span class="status-item"><small>Cadence</small><strong id="statusCadence">Daily</strong></span>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <section class="intake-panel" aria-label="Incident intake">
+        <div class="panel-heading">
+          <p class="eyebrow">Incident Intake</p>
+          <h2>Command inputs</h2>
+        </div>
+
+        <form id="incidentForm">
+          <label>
+            Scenario preset
+            <select id="scenarioPreset">
+              <option value="taylor">Taylor Farms cyclospora recall</option>
+              <option value="blank">Blank crisis</option>
+            </select>
+          </label>
+
+          <label>
+            Organization
+            <input id="organization" type="text" value="Taylor Fresh Foods">
+          </label>
+
+          <div class="field-grid">
+            <label>
+              Crisis type
+              <select id="crisisType">
+                <option>Food safety / public health</option>
+                <option>Cybersecurity incident</option>
+                <option>AI product failure</option>
+                <option>Executive conduct</option>
+                <option>Regulatory investigation</option>
+              </select>
+            </label>
+
+            <label>
+              Severity
+              <select id="severity">
+                <option value="critical">Critical</option>
+                <option value="high">High</option>
+                <option value="medium">Medium</option>
+                <option value="watch">Watch</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="field-grid">
+            <label>
+              Regulator posture
+              <select id="regulatorPosture">
+                <option value="active">Active investigation</option>
+                <option value="unclear">Unclear / evolving</option>
+                <option value="adversarial">Public disagreement</option>
+                <option value="none">No regulator involved</option>
+              </select>
+            </label>
+
+            <label>
+              Public update cadence
+              <select id="cadence">
+                <option>Daily</option>
+                <option>Twice daily</option>
+                <option>Every 48 hours</option>
+                <option>Only on material changes</option>
+              </select>
+            </label>
+          </div>
+
+          <label>
+            Confirmed facts
+            <textarea id="facts" rows="6"></textarea>
+          </label>
+
+          <label>
+            Known unknowns
+            <textarea id="unknowns" rows="5"></textarea>
+          </label>
+
+          <label>
+            Current response risk
+            <textarea id="currentResponse" rows="4"></textarea>
+          </label>
+
+          <fieldset>
+            <legend>Impacted stakeholders</legend>
+            <div class="checkbox-grid">
+              <label><input type="checkbox" name="stakeholder" value="Affected people" checked> Affected people</label>
+              <label><input type="checkbox" name="stakeholder" value="Consumers" checked> Consumers</label>
+              <label><input type="checkbox" name="stakeholder" value="Regulators" checked> Regulators</label>
+              <label><input type="checkbox" name="stakeholder" value="Customers / operators" checked> Customers / operators</label>
+              <label><input type="checkbox" name="stakeholder" value="Employees" checked> Employees</label>
+              <label><input type="checkbox" name="stakeholder" value="Media" checked> Media</label>
+            </div>
+          </fieldset>
+
+          <div class="button-row">
+            <button type="submit">Generate advisory</button>
+            <button type="button" class="secondary" id="resetScenario">Reset preset</button>
+            <button type="button" class="secondary" id="printAdvisory">Print advisory</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="war-room" aria-live="polite">
+        <div class="command-header">
+          <div>
+            <p class="eyebrow">Executive View</p>
+            <h2 id="commandTitle">Go quiet on attribution. Get loud on action.</h2>
+          </div>
+          <div class="scoreboard" aria-label="Posture scores">
+            <div><span id="scoreFacts">0</span><small>Facts</small></div>
+            <div><span id="scoreEmpathy">0</span><small>Empathy</small></div>
+            <div><span id="scoreTrust">0</span><small>Trust</small></div>
+          </div>
+        </div>
+
+        <nav class="tabs" aria-label="War room views">
+          <button class="tab active" type="button" data-tab="brief">Brief</button>
+          <button class="tab" type="button" data-tab="stakeholders">Stakeholders</button>
+          <button class="tab" type="button" data-tab="assets">Assets</button>
+          <button class="tab" type="button" data-tab="rebuild">Rebuild</button>
+          <button class="tab" type="button" data-tab="sources">Sources</button>
+        </nav>
+
+        <div class="tab-panel active" id="brief">
+          <div class="brief-grid">
+            <article class="module action-module">
+              <h3>First moves</h3>
+              <ul id="firstMoves"></ul>
+            </article>
+            <article class="module warning-module">
+              <h3>Do not say</h3>
+              <ul id="redFlags"></ul>
+            </article>
+          </div>
+
+          <article class="module">
+            <h3>Message map</h3>
+            <div class="message-map" id="messageMap"></div>
+          </article>
+
+          <article class="module checks-module">
+            <h3>Where the scores come from</h3>
+            <p class="module-note">Each score is the share of these checks passed. Fix a missing one and regenerate.</p>
+            <div class="checks-grid" id="postureChecks"></div>
+          </article>
+        </div>
+
+        <div class="tab-panel" id="stakeholders">
+          <div class="stakeholder-grid" id="stakeholderGrid"></div>
+        </div>
+
+        <div class="tab-panel" id="assets">
+          <div class="asset-toolbar">
+            <button type="button" class="secondary copy-button" data-copy-target="holdingStatement">Copy holding statement</button>
+            <button type="button" class="secondary copy-button" data-copy-target="internalNote">Copy employee note</button>
+          </div>
+          <div class="asset-grid">
+            <article class="module">
+              <h3>Holding statement</h3>
+              <p id="holdingStatement" class="draft-copy"></p>
+            </article>
+            <article class="module">
+              <h3>Employee note</h3>
+              <p id="internalNote" class="draft-copy"></p>
+            </article>
+            <article class="module">
+              <h3>Media Q&A</h3>
+              <dl id="mediaQa" class="qa-list"></dl>
+            </article>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="rebuild">
+          <div class="timeline" id="trustTimeline"></div>
+        </div>
+
+        <div class="tab-panel" id="sources">
+          <article class="module">
+            <h3>Source-grounded case file</h3>
+            <ul class="source-list">
+              <li><a href="https://www.fda.gov/food/outbreaks-foodborne-illness/investigation-9-state-outbreak-cyclospora-illnesses-iceberg-lettuce-july-2026" target="_blank" rel="noreferrer">FDA outbreak investigation</a></li>
+              <li><a href="https://www.cdc.gov/cyclosporiasis/outbreaks/07-26/index.html" target="_blank" rel="noreferrer">CDC food safety alert</a></li>
+              <li><a href="https://www.taylorfarms.com/newsroom/taylor-fresh-foods-statement-regarding-cyclospora-outbreak/" target="_blank" rel="noreferrer">Taylor Fresh Foods statement</a></li>
+              <li><a href="https://www.prdaily.com/be-the-cco-communicators-on-what-taylor-farms-should-do-now/" target="_blank" rel="noreferrer">PR Daily communicator recommendations</a></li>
+            </ul>
+            <p class="module-note">Links verified July 30, 2026.</p>
+          </article>
+          <article class="module">
+            <h3>Advisory rules encoded</h3>
+            <ul id="advisoryRules"></ul>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>Built by <a href="https://austley.com" target="_blank" rel="noreferrer">Austley</a>. Free for comms pros to use, copy, and adapt. Guidance here is a starting point, not legal advice.</p>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
