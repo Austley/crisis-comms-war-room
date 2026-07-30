@@ -1,0 +1,34 @@
+{
+  "case": "Taylor Farms cyclospora recall",
+  "last_reviewed": "2026-07-30",
+  "incident_type": "Food safety / public health",
+  "facts": [
+    "FDA and CDC investigated a multistate Cyclospora outbreak linked to shredded iceberg lettuce served at Taco Bell locations.",
+    "FDA traceback identified convergence on Taylor Farms de Mexico as the supplier of iceberg lettuce used by affected Taco Bell locations.",
+    "Taylor Farms initiated a July 17, 2026 recall of iceberg lettuce sourced from central Mexico.",
+    "As of FDA's July 24, 2026 update, the outbreak included 1,947 people reporting Taco Bell exposure, 98 hospitalizations, and no deaths across 9 states.",
+    "FDA said a July 19 false-positive lab sample did not change the basis for the ongoing investigation or voluntary recall."
+  ],
+  "communication_risks": [
+    "Opening with a regulator-focused vindication frame while people are ill.",
+    "Treating a corrected lab result as equivalent to a cleared investigation.",
+    "Mixing consumer, foodservice, media, and regulator information in ways that make public action harder.",
+    "Using brand-defense proof points before practical safety guidance.",
+    "Allowing multiple interpretations of the same facts to circulate."
+  ],
+  "advisory_principles": [
+    "Lead with affected people.",
+    "Separate facts, unknowns, actions, and next updates.",
+    "Do not get ahead of regulators.",
+    "Use one source of truth and one message map.",
+    "Bring in independent experts and publish the process.",
+    "Segment resources by stakeholder.",
+    "Plan trust rebuilding over months, not news cycles."
+  ],
+  "source_links": [
+    "https://www.fda.gov/food/outbreaks-foodborne-illness/investigation-9-state-outbreak-cyclospora-illnesses-iceberg-lettuce-july-2026",
+    "https://www.cdc.gov/cyclosporiasis/outbreaks/07-26/index.html",
+    "https://www.taylorfarms.com/newsroom/taylor-fresh-foods-statement-regarding-cyclospora-outbreak/",
+    "https://www.prdaily.com/be-the-cco-communicators-on-what-taylor-farms-should-do-now/"
+  ]
+}
